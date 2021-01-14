@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Routine Saver</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.1/howler.min.js"></script>
+</head>
+<body>
+	<div id="app" class="wrapper">
+		<div class="tabs">
+			<li v-for="routine in routines" :class="{'active' : currentRoutine == routine}" v-on:click="currentRoutine = routine">{{routine.name}}</li>
+		</div>
+
+		<div class="content">
+			<div class="header">
+				<div class="name">
+					<h1>{{currentRoutine.name}}</h1>
+				</div>
+				<div class="timer">
+					<h3>⏱ {{mmss(time)}}</h3>
+					<button v-on:click="start()">Start</button>
+					<button v-on:click="reset()">Reset</button>
+				</div>
+			</div>
+			<div class="bar"><div class="fill" :style="{'width' : (100 - (time / currentRoutine.maxTime * 100)) + '%'}"></div></div>
+			<div class="days">
+				<li v-on:click="markDay(day)" :class="{'active' : currentRoutine.days.indexOf(day) > -1}" v-for="(day, index) in days">
+					{{day}}
+					<small>{{dayNames[index]}}</small>
+				</li>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="js/vue.min.js"></script>
+	<script type="text/javascript" src="js/app.js?v=1.0"></script>
+</body>
+</html>
